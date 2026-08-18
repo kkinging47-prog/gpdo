@@ -40,3 +40,65 @@ A responsive static website for Global Passion Development Organization (GPDO), 
 - Instagram: @globalpassiondevelopment
 - TikTok: @globalpassiondevelopment
 
+
+## Using your new transparent logo
+
+The site now uses `assets/gpdo-logo.png` as the main logo in the header, footer, and browser tab icon.
+
+## How to upload your own images
+
+### Replace images already on the site
+1. Put your photo files inside `assets/` or `assets/gallery/`.
+2. Use simple file names, for example:
+   - `community-training.jpg`
+   - `women-empowerment.jpg`
+   - `health-outreach.jpg`
+3. Open the HTML file where you want the image.
+4. Replace the current image path with your own file path.
+
+Example:
+```html
+<img src="assets/gallery/community-training.jpg" alt="Community training programme">
+```
+
+### Add a gallery section
+Create a section like this in any page:
+
+```html
+<section class="section">
+  <div class="container">
+    <h2>Gallery</h2>
+    <div class="gallery-grid">
+      <img src="assets/gallery/photo1.jpg" alt="GPDO programme photo 1">
+      <img src="assets/gallery/photo2.jpg" alt="GPDO programme photo 2">
+      <img src="assets/gallery/photo3.jpg" alt="GPDO programme photo 3">
+      <img src="assets/gallery/photo4.jpg" alt="GPDO programme photo 4">
+    </div>
+  </div>
+</section>
+```
+
+Then add this to `styles.css`:
+
+```css
+.gallery-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:18px;
+}
+.gallery-grid img{
+  width:100%;
+  height:240px;
+  object-fit:cover;
+  border-radius:18px;
+  box-shadow:0 12px 30px rgba(7,28,53,.08);
+}
+```
+
+### Uploading updated files to GitHub
+1. Open your GitHub repository.
+2. Open the `assets` folder.
+3. Click **Add file** > **Upload files**.
+4. Drag your images into GitHub.
+5. Commit the changes.
+6. Vercel will automatically redeploy the site.
