@@ -1,5 +1,16 @@
 const menuBtn = document.querySelector('.menu-btn');
 const navLinks = document.querySelector('.nav-links');
+
+// Keep Gallery visible in the main navigation on every page.
+if (navLinks && !navLinks.querySelector('a[href="gallery.html"]')) {
+  const galleryLink = document.createElement('a');
+  galleryLink.href = 'gallery.html';
+  galleryLink.textContent = 'Gallery';
+  const getInvolved = navLinks.querySelector('a[href="get-involved.html"]');
+  if (getInvolved) navLinks.insertBefore(galleryLink, getInvolved);
+  else navLinks.appendChild(galleryLink);
+}
+
 if (menuBtn && navLinks) {
   menuBtn.addEventListener('click', () => {
     const open = navLinks.classList.toggle('open');
