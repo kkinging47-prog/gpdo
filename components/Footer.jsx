@@ -1,6 +1,10 @@
+'use client';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 export default function Footer() {
+  const pathname = usePathname();
+  if (pathname?.startsWith('/admin')) return null;
   const year = new Date().getFullYear();
   return <footer><div className="container"><div className="footer-grid">
     <div><img className="footer-logo" src="/assets/gpdo-logo.png" alt="GPDO" /><p className="footer-about">Empowering underserved communities through education, gender equity, healthcare, climate action and sustainable development.</p><div className="socials"><a href="#" aria-label="Facebook">f</a><a href="https://www.instagram.com/globalpassiondevelopment/" target="_blank" rel="noopener" aria-label="Instagram">◎</a><a href="https://www.tiktok.com/@globalpassiondevelopment" target="_blank" rel="noopener" aria-label="TikTok">♪</a></div></div>
