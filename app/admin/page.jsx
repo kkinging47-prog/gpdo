@@ -9,7 +9,7 @@ export const metadata = { title: 'Admin Dashboard' };
 const modules = [
   ['Media & Gallery', 'Upload and organize photographs and albums.', 'Step 4', '/admin/media', true],
   ['Homepage Slideshow', 'Create, reorder and schedule homepage slides.', 'Step 5', '/admin/slides', true],
-  ['Events', 'Publish upcoming events and archive past events.', 'Step 6', null, false],
+  ['Events', 'Publish upcoming events and automatically archive past dates.', 'Step 6', '/admin/events', true],
   ['Programs & Projects', 'Manage current, upcoming and completed programmes.', 'Step 7', null, false],
   ['Articles & News', 'Write, edit, publish and feature organization news.', 'Step 8', null, false],
   ['Daily Tips', 'Schedule short daily education, health and development tips.', 'Step 9', null, false],
@@ -37,7 +37,7 @@ export default async function AdminDashboard() {
     <AdminSidebar />
     <section className="admin-main">
       <header className="admin-topbar"><div><span className="admin-eyebrow">GPDO Administration</span><h1>Welcome to your dashboard.</h1><p>Signed in as {admin.email} · {admin.role}</p></div><form action="/auth/signout" method="post"><button className="admin-secondary-btn" type="submit">Sign out</button></form></header>
-      <div className="admin-status-banner"><strong>Media, Gallery and Homepage Slideshow are enabled.</strong><span>You can now update major visual content without editing GitHub.</span></div>
+      <div className="admin-status-banner"><strong>Media, Slideshow and Events are enabled.</strong><span>You can now update key public content without editing GitHub.</span></div>
       <div className="admin-module-grid">
         {modules.map(([name,desc,step,href,enabled]) => <article className={`admin-module-card${enabled ? ' enabled' : ''}`} key={name}><span>{step}</span><h2>{name}</h2><p>{desc}</p>{enabled ? <Link className="admin-module-link" href={href}>Open manager →</Link> : <button disabled>Coming later</button>}</article>)}
       </div>
