@@ -13,11 +13,6 @@ export default function LoginForm() {
     e.preventDefault();
     setLoading(true); setMessage(''); setError('');
     const normalized = email.trim().toLowerCase();
-    if (normalized !== 'info@gpdo.org') {
-      setError('This email address is not currently authorized for GPDO administration.');
-      setLoading(false);
-      return;
-    }
     const supabase = createClient();
     const { error: authError } = await supabase.auth.signInWithOtp({
       email: normalized,
@@ -27,16 +22,16 @@ export default function LoginForm() {
       },
     });
     if (authError) setError(authError.message);
-    else setMessage('A secure sign-in link has been sent to info@gpdo.org. Open the email and click the link to enter the dashboard.');
+    else setMessage(`A secure sign-in link has been sent to ${normalized}. Only email addresses approved in GPDO User Management can enter the CMS.`);
     setLoading(false);
   }
 
   return <form className="admin-login-form" onSubmit={submit}>
-    <label htmlFor="admin-email">Administrator email</label>
+    <label htmlFor="admin-email">Approved GPDO email</label>
     <input id="admin-email" type="email" value={email} onChange={e => setEmail(e.target.value)} required autoComplete="email" />
     <button className="admin-primary-btn" type="submit" disabled={loading}>{loading ? 'Sending secure link…' : 'Send secure sign-in link'}</button>
     {message && <p className="admin-success">{message}</p>}
     {error && <p className="admin-error">{error}</p>}
-    <p className="admin-help">No password is stored on this website. Supabase sends a one-time secure login link to the approved administrator email.</p>
+    <p className="admin-help">No password is stored on this website. Supabase sends a one-time secure login link, and the database checks that the email is an active approved administrator or editor before CMS access is granted.</p>
   </form>;
 }
