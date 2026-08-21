@@ -4,36 +4,62 @@ import { useState } from 'react';
 import { createClient } from '../../../lib/supabase/client';
 
 export default function LoginForm() {
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState('globalpassion79@gmail.com');
+  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [magicLoading, setMagicLoading] = useState(false);
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
 
-  async function submit(e) {
+  async function passwordLogin(e) {
     e.preventDefault();
     setLoading(true); setMessage(''); setError('');
+    const normalized = email.trim().toLowerCase();
+    const supabase = createClient();
+    const { error: authError } = await supabase.auth.signInWithPassword({
+      email: normalized,
+      password,
+    });
+
+    if (authError) {
+      setError(authError.message);
+      setLoading(false);
+      return;
+    }
+
+    window.location.assign('/admin');
+  }
+
+  async function sendMagicLink() {
+    setMagicLoading(true); setMessage(''); setError('');
     const normalized = email.trim().toLowerCase();
     const supabase = createClient();
     const { error: authError } = await supabase.auth.signInWithOtp({
       email: normalized,
       options: {
-        // Keep this URL identical to the Supabase Additional Redirect URL.
-        // /auth/callback defaults to sending authenticated staff to /admin.
         emailRedirectTo: `${window.location.origin}/auth/callback`,
-        shouldCreateUser: true,
+        shouldCreateUser: false,
       },
     });
+
     if (authError) setError(authError.message);
-    else setMessage('If this email is approved for GPDO administration, check its inbox for the secure sign-in link.');
-    setLoading(false);
+    else setMessage('Secure sign-in link sent. Check the approved email inbox.');
+    setMagicLoading(false);
   }
 
-  return <form className="admin-login-form" onSubmit={submit}>
+  return <form className="admin-login-form" onSubmit={passwordLogin}>
     <label htmlFor="admin-email">Approved CMS email</label>
     <input id="admin-email" type="email" value={email} onChange={e => setEmail(e.target.value)} required autoComplete="email" placeholder="name@example.org" />
-    <button className="admin-primary-btn" type="submit" disabled={loading}>{loading ? 'Sending secure link…' : 'Send secure sign-in link'}</button>
+
+    <label htmlFor="admin-password">Password</label>
+    <input id="admin-password" type="password" value={password} onChange={e => setPassword(e.target.value)} required autoComplete="current-password" placeholder="Enter your temporary admin password" />
+
+    <button className="admin-primary-btn" type="submit" disabled={loading}>{loading ? 'Signing in…' : 'Sign in with password'}</button>
+
+    <button className="admin-secondary-btn" type="button" onClick={sendMagicLink} disabled={magicLoading}>{magicLoading ? 'Sending link…' : 'Send magic link instead'}</button>
+
     {message && <p className="admin-success">{message}</p>}
     {error && <p className="admin-error">{error}</p>}
-    <p className="admin-help">No password is stored on this website. Supabase sends a one-time secure login link. Database authorization still decides whether the signed-in email can access the GPDO dashboard.</p>
+    <p className="admin-help">Access still requires an active GPDO administrator/editor record in the database. Password login is enabled as a temporary fallback while the default Supabase email service is rate-limited.</p>
   </form>;
 }
