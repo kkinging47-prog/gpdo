@@ -1,0 +1,18 @@
+.nav{min-height:64px;gap:20px}
+.brand{display:flex;align-items:center;flex:none}
+.brand img{width:auto;height:50px;max-width:210px;object-fit:contain}
+.nav-links{gap:22px}
+.nav-links a{font-size:.9rem}
+.nav-cta{padding:9px 15px}
+
+@media(max-width:980px){
+  .nav{min-height:62px}
+  .brand img{height:46px;max-width:190px}
+  .nav-links{inset:62px 18px auto 18px}
+}
+
+@media(max-width:520px){
+  .nav{min-height:58px}
+  .brand img{height:42px;max-width:170px}
+  .nav-links{inset:58px 14px auto 14px}
+}
