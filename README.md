@@ -20,6 +20,7 @@ Steps 1–11 have been implemented on the `nextjs-migration` preview branch:
 
 ### Step 11 hardening
 
+- Latest Vercel preview build passes successfully.
 - Supabase security advisor reports no current security findings.
 - All CMS tables have Row Level Security enabled.
 - Public read policies are scoped to anonymous visitors; authenticated staff use staff policies.
