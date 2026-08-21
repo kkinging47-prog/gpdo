@@ -1,5 +1,7 @@
 import './globals.css';
 import './admin.css';
+import './slideshow.css';
+import './slides-admin.css';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import RevealManager from '../components/RevealManager';
