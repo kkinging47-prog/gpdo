@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { createClient } from '../../../lib/supabase/client';
 
 export default function LoginForm() {
-  const [email, setEmail] = useState('info@gpdo.org');
+  const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
@@ -22,16 +22,16 @@ export default function LoginForm() {
       },
     });
     if (authError) setError(authError.message);
-    else setMessage(`A secure sign-in link has been sent to ${normalized}. Only email addresses approved in GPDO User Management can enter the CMS.`);
+    else setMessage('If this email is approved for GPDO administration, check its inbox for the secure sign-in link.');
     setLoading(false);
   }
 
   return <form className="admin-login-form" onSubmit={submit}>
-    <label htmlFor="admin-email">Approved GPDO email</label>
-    <input id="admin-email" type="email" value={email} onChange={e => setEmail(e.target.value)} required autoComplete="email" />
+    <label htmlFor="admin-email">Approved CMS email</label>
+    <input id="admin-email" type="email" value={email} onChange={e => setEmail(e.target.value)} required autoComplete="email" placeholder="name@example.org" />
     <button className="admin-primary-btn" type="submit" disabled={loading}>{loading ? 'Sending secure link…' : 'Send secure sign-in link'}</button>
     {message && <p className="admin-success">{message}</p>}
     {error && <p className="admin-error">{error}</p>}
-    <p className="admin-help">No password is stored on this website. Supabase sends a one-time secure login link, and the database checks that the email is an active approved administrator or editor before CMS access is granted.</p>
+    <p className="admin-help">No password is stored on this website. Supabase sends a one-time secure login link. Database authorization still decides whether the signed-in email can access the GPDO dashboard.</p>
   </form>;
 }
