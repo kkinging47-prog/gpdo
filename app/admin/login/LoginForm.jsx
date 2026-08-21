@@ -6,6 +6,7 @@ import { createClient } from '../../../lib/supabase/client';
 export default function LoginForm() {
   const [email, setEmail] = useState('globalpassion79@gmail.com');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [magicLoading, setMagicLoading] = useState(false);
   const [message, setMessage] = useState('');
@@ -52,7 +53,27 @@ export default function LoginForm() {
     <input id="admin-email" type="email" value={email} onChange={e => setEmail(e.target.value)} required autoComplete="email" placeholder="name@example.org" />
 
     <label htmlFor="admin-password">Password</label>
-    <input id="admin-password" type="password" value={password} onChange={e => setPassword(e.target.value)} required autoComplete="current-password" placeholder="Enter your temporary admin password" />
+    <input
+      id="admin-password"
+      type={showPassword ? 'text' : 'password'}
+      value={password}
+      onChange={e => setPassword(e.target.value)}
+      required
+      autoComplete="current-password"
+      placeholder="Enter your temporary admin password"
+      spellCheck="false"
+      autoCapitalize="none"
+    />
+
+    <label style={{ display: 'flex', alignItems: 'center', gap: '0.55rem', cursor: 'pointer', fontWeight: 600 }}>
+      <input
+        type="checkbox"
+        checked={showPassword}
+        onChange={e => setShowPassword(e.target.checked)}
+        style={{ width: '1.1rem', height: '1.1rem' }}
+      />
+      Show password
+    </label>
 
     <button className="admin-primary-btn" type="submit" disabled={loading}>{loading ? 'Signing in…' : 'Sign in with password'}</button>
 
