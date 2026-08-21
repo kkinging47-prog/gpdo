@@ -16,19 +16,26 @@ export default function LoginForm() {
     e.preventDefault();
     setLoading(true); setMessage(''); setError('');
     const normalized = email.trim().toLowerCase();
-    const supabase = createClient();
-    const { error: authError } = await supabase.auth.signInWithPassword({
-      email: normalized,
-      password,
-    });
 
-    if (authError) {
-      setError(authError.message);
+    try {
+      const response = await fetch('/api/admin/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: normalized, password }),
+      });
+
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok) {
+        setError(result.error || 'Sign-in failed. Please check your details and try again.');
+        setLoading(false);
+        return;
+      }
+
+      window.location.assign('/admin');
+    } catch {
+      setError('The GPDO website could not complete the sign-in request. Please try again.');
       setLoading(false);
-      return;
     }
-
-    window.location.assign('/admin');
   }
 
   async function sendMagicLink() {
@@ -60,7 +67,7 @@ export default function LoginForm() {
       onChange={e => setPassword(e.target.value)}
       required
       autoComplete="current-password"
-      placeholder="Enter your temporary admin password"
+      placeholder="Enter your admin password"
       spellCheck="false"
       autoCapitalize="none"
     />
@@ -81,6 +88,6 @@ export default function LoginForm() {
 
     {message && <p className="admin-success">{message}</p>}
     {error && <p className="admin-error">{error}</p>}
-    <p className="admin-help">Access still requires an active GPDO administrator/editor record in the database. Password login is enabled as a temporary fallback while the default Supabase email service is rate-limited.</p>
+    <p className="admin-help">Password sign-in is processed securely by the GPDO server and still requires an active administrator/editor record in the database.</p>
   </form>;
 }
