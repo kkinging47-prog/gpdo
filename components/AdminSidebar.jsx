@@ -11,8 +11,8 @@ const modules = [
   { label: 'Programs & Projects', href: '/admin/programs' },
   { label: 'Articles & News', href: '/admin/articles' },
   { label: 'Daily Tips', href: '/admin/tips' },
-  { label: 'Site Settings', step: 'Step 10' },
-  { label: 'Users', step: 'Step 10' },
+  { label: 'Site Settings', href: '/admin/settings' },
+  { label: 'Users', href: '/admin/users' },
 ];
 
 export default function AdminSidebar() {
@@ -20,11 +20,7 @@ export default function AdminSidebar() {
   return <aside className="admin-sidebar">
     <img src="/assets/gpdo-logo.png" alt="GPDO" className="admin-side-logo" />
     <div className="admin-side-title">Content Manager</div>
-    <nav>
-      {modules.map((item) => item.href ? (
-        <Link key={item.label} href={item.href} className={pathname === item.href || (item.href !== '/admin' && pathname.startsWith(item.href + '/')) ? 'active' : ''}>{item.label}</Link>
-      ) : <span key={item.label} title={item.step}>{item.label}</span>)}
-    </nav>
+    <nav>{modules.map((item)=><Link key={item.label} href={item.href} className={pathname===item.href||(item.href!=='/admin'&&pathname.startsWith(item.href+'/'))?'active':''}>{item.label}</Link>)}</nav>
     <Link href="/" className="admin-view-site">View public website ↗</Link>
   </aside>;
 }
