@@ -7,7 +7,7 @@ const modules = [
   { label: 'Dashboard', href: '/admin' },
   { label: 'Media & Gallery', href: '/admin/media' },
   { label: 'Homepage Slideshow', href: '/admin/slides' },
-  { label: 'Events', step: 'Step 6' },
+  { label: 'Events', href: '/admin/events' },
   { label: 'Programs & Projects', step: 'Step 7' },
   { label: 'Articles & News', step: 'Step 8' },
   { label: 'Daily Tips', step: 'Step 9' },
@@ -22,7 +22,7 @@ export default function AdminSidebar() {
     <div className="admin-side-title">Content Manager</div>
     <nav>
       {modules.map((item) => item.href ? (
-        <Link key={item.label} href={item.href} className={pathname === item.href ? 'active' : ''}>{item.label}</Link>
+        <Link key={item.label} href={item.href} className={pathname === item.href || (item.href !== '/admin' && pathname.startsWith(item.href + '/')) ? 'active' : ''}>{item.label}</Link>
       ) : <span key={item.label} title={item.step}>{item.label}</span>)}
     </nav>
     <Link href="/" className="admin-view-site">View public website ↗</Link>
