@@ -10,7 +10,7 @@ const modules = [
   { label: 'Events', href: '/admin/events' },
   { label: 'Programs & Projects', href: '/admin/programs' },
   { label: 'Articles & News', href: '/admin/articles' },
-  { label: 'Daily Tips', step: 'Step 9' },
+  { label: 'Daily Tips', href: '/admin/tips' },
   { label: 'Site Settings', step: 'Step 10' },
   { label: 'Users', step: 'Step 10' },
 ];
