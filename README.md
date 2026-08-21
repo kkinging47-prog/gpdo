@@ -39,4 +39,4 @@ The existing GPDO schema, RLS policies, authorization helpers, admin safeguards,
 - Password sign-in is the active admin login method. Magic-link sign-in is not exposed while SMTP and production redirect settings are not yet configured.
 - The temporary Supabase diagnostic endpoint used during migration has been removed.
 
-Production `main` remains unchanged until explicit approval for the final Step 12 merge and deployment.
+Step 12 is prepared but not executed. Production `main` remains unchanged until explicit approval for the final merge and deployment.
