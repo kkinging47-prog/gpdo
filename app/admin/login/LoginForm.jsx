@@ -17,7 +17,9 @@ export default function LoginForm() {
     const { error: authError } = await supabase.auth.signInWithOtp({
       email: normalized,
       options: {
-        emailRedirectTo: `${window.location.origin}/auth/callback?next=/admin`,
+        // Keep this URL identical to the Supabase Additional Redirect URL.
+        // /auth/callback defaults to sending authenticated staff to /admin.
+        emailRedirectTo: `${window.location.origin}/auth/callback`,
         shouldCreateUser: true,
       },
     });
