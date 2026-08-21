@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 
-const links = [['/', 'Home'],['/about', 'About'],['/programs', 'Our Work'],['/gallery', 'Gallery'],['/events', 'Events'],['/get-involved', 'Get Involved'],['/contact', 'Contact']];
+const links = [['/', 'Home'],['/about', 'About'],['/programs', 'Our Work'],['/gallery', 'Gallery'],['/events', 'Events'],['/news', 'News'],['/get-involved', 'Get Involved'],['/contact', 'Contact']];
 
 export default function Header() {
   const pathname = usePathname();
