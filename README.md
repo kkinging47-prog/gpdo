@@ -1,104 +1,37 @@
-# GPDO Website
+# Global Passion Development Organization (GPDO)
 
-A responsive static website for Global Passion Development Organization (GPDO), designed for institutional credibility and international donor engagement.
+Official website and content management system for Global Passion Development Organization.
 
-## Deploy to GitHub + Vercel
+## Upgrade status
 
-1. Create a new GitHub repository (for example `gpdo-website`).
-2. Upload all files in this folder to the repository root.
-3. In Vercel, choose **Add New > Project** and import the GitHub repository.
-4. Framework preset: **Other** (Vercel will serve the static site automatically).
-5. No build command is required.
-6. Deploy.
+Steps 1–11 have been implemented on the `nextjs-migration` preview branch:
 
-## Recommended edits before public launch
+1. Next.js migration
+2. Supabase database and storage
+3. Secure admin authentication
+4. Media & Gallery Manager
+5. Homepage Slideshow Manager
+6. Events Manager
+7. Programs & Projects Manager
+8. Articles & News Manager
+9. Daily Tips Manager
+10. Site Settings & User Management
+11. Security, responsive-layout and configuration audit
 
-- Replace the placeholder Facebook link with the exact page URL.
-- Add an official GPDO email address when available.
-- Add the organization's registration/company number if you want it public.
-- Replace stock photography with GPDO's own high-resolution field photos as programmes begin.
-- Add audited/verified impact metrics only when they are available.
-- Connect a real donation/payment route (bank, Paystack, Flutterwave, donor portal, etc.) when ready.
-- Add privacy, safeguarding, anti-fraud, and other institutional policies as downloadable documents when available.
+### Step 11 hardening
 
-## Main files
+- Supabase security advisor reports no current security findings.
+- All CMS tables have Row Level Security enabled.
+- Public read policies are scoped to anonymous visitors; authenticated staff use staff policies.
+- Future-dated daily tips remain inaccessible until their display date.
+- User management is administrator-only and the database protects the final active administrator from removal or demotion.
+- Auth callback redirects are restricted to `/admin` destinations.
+- Admin and auth routes send `X-Robots-Tag: noindex, nofollow, noarchive`.
+- Standard response security headers are configured.
+- Contact form WhatsApp destination is driven by Site Settings rather than a hard-coded number.
+- Responsive breakpoints cover public navigation, content grids, forms and admin layouts.
+- No Supabase service-role or secret key is stored in the repository.
 
-- `index.html` — Home
-- `about.html` — About / Vision / Mission / Why GPDO Exists
-- `programs.html` — Focus areas and programme model
-- `get-involved.html` — Partnership, sponsorship, volunteering, donations
-- `contact.html` — Contact page + WhatsApp enquiry form
-- `styles.css` — Brand and responsive styles
-- `script.js` — Mobile menu, animations, WhatsApp form
-- `assets/logo.svg` — Editable GPDO identity mark
-- `assets/og-cover.svg` — Social sharing artwork
+One manual end-to-end magic-link login test remains dependent on adding the preview callback URL in Supabase Authentication URL Configuration.
 
-## Contact links used
-
-- Primary WhatsApp / phone: +233 25 607 3403
-- Secondary phone: +233 59 736 5695
-- Instagram: @globalpassiondevelopment
-- TikTok: @globalpassiondevelopment
-
-
-## Using your new transparent logo
-
-The site now uses `assets/gpdo-logo.png` as the main logo in the header, footer, and browser tab icon.
-
-## How to upload your own images
-
-### Replace images already on the site
-1. Put your photo files inside `assets/` or `assets/gallery/`.
-2. Use simple file names, for example:
-   - `community-training.jpg`
-   - `women-empowerment.jpg`
-   - `health-outreach.jpg`
-3. Open the HTML file where you want the image.
-4. Replace the current image path with your own file path.
-
-Example:
-```html
-<img src="assets/gallery/community-training.jpg" alt="Community training programme">
-```
-
-### Add a gallery section
-Create a section like this in any page:
-
-```html
-<section class="section">
-  <div class="container">
-    <h2>Gallery</h2>
-    <div class="gallery-grid">
-      <img src="assets/gallery/photo1.jpg" alt="GPDO programme photo 1">
-      <img src="assets/gallery/photo2.jpg" alt="GPDO programme photo 2">
-      <img src="assets/gallery/photo3.jpg" alt="GPDO programme photo 3">
-      <img src="assets/gallery/photo4.jpg" alt="GPDO programme photo 4">
-    </div>
-  </div>
-</section>
-```
-
-Then add this to `styles.css`:
-
-```css
-.gallery-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:18px;
-}
-.gallery-grid img{
-  width:100%;
-  height:240px;
-  object-fit:cover;
-  border-radius:18px;
-  box-shadow:0 12px 30px rgba(7,28,53,.08);
-}
-```
-
-### Uploading updated files to GitHub
-1. Open your GitHub repository.
-2. Open the `assets` folder.
-3. Click **Add file** > **Upload files**.
-4. Drag your images into GitHub.
-5. Commit the changes.
-6. Vercel will automatically redeploy the site.
+Production `main` remains unchanged until final Step 12 deployment.
