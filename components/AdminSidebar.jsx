@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 const modules = [
   { label: 'Dashboard', href: '/admin' },
   { label: 'Media & Gallery', href: '/admin/media' },
-  { label: 'Homepage Slideshow', step: 'Step 5' },
+  { label: 'Homepage Slideshow', href: '/admin/slides' },
   { label: 'Events', step: 'Step 6' },
   { label: 'Programs & Projects', step: 'Step 7' },
   { label: 'Articles & News', step: 'Step 8' },
