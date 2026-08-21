@@ -8,6 +8,8 @@ import './programs-public.css';
 import './programs-admin.css';
 import './news.css';
 import './admin-articles.css';
+import './tips.css';
+import './admin-tips.css';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import RevealManager from '../components/RevealManager';
