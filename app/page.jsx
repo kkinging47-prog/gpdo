@@ -1,7 +1,31 @@
 import Link from 'next/link';
+import HomeHeroSlideshow from '../components/HomeHeroSlideshow';
+import { createClient } from '../lib/supabase/server';
 
-export default function HomePage(){return <main>
-<section className="hero"><div className="container hero-content"><span className="kicker">Global Passion Development Organization</span><h1>Empowering communities. Creating lasting change.</h1><p className="lead">We work with underserved communities to expand opportunity through inclusive education, gender equity, better health, climate resilience and practical pathways to sustainable development.</p><div className="hero-actions"><Link className="btn btn-primary" href="/get-involved">Partner with GPDO <span>→</span></Link><Link className="btn btn-outline" href="/programs">Explore our work</Link></div><div className="hero-trust"><div><strong>Founded in 2024</strong><span>Built to bridge persistent development gaps through community-led action.</span></div><div><strong>Non-profit structure</strong><span>Company Limited by Guarantee under the Companies Act, 2019 (Act 992).</span></div><div><strong>Integrated approach</strong><span>Education, health, inclusion and climate action designed to reinforce one another.</span></div></div></div></section>
+export const dynamic = 'force-dynamic';
+
+const fallbackSlides = [{
+  id: 'fallback',
+  title: 'Empowering communities. Creating lasting change.',
+  subtitle: 'We work with underserved communities to expand opportunity through inclusive education, gender equity, better health, climate resilience and practical pathways to sustainable development.',
+  image_path: '/assets/IMG-20260617-WA0018.jpg',
+  image_url: '/assets/IMG-20260617-WA0018.jpg',
+  button_text: 'Partner with GPDO',
+  button_url: '/get-involved',
+  secondary_button_text: 'Explore our work',
+  secondary_button_url: '/programs',
+  overlay_strength: 0.6,
+}];
+
+export default async function HomePage(){
+  const supabase = await createClient();
+  const { data } = await supabase.from('home_slides').select('*').eq('is_active', true).order('sort_order').order('created_at');
+  const now = Date.now();
+  const managedSlides = (data || []).filter((slide) => (!slide.starts_at || new Date(slide.starts_at).getTime() <= now) && (!slide.ends_at || new Date(slide.ends_at).getTime() >= now));
+  const heroSlides = managedSlides.length ? managedSlides : fallbackSlides;
+
+  return <main>
+<HomeHeroSlideshow slides={heroSlides}/>
 <div className="donor-bar"><div className="container donor-panel"><div><div className="eyebrow">Built for responsible partnership</div><strong>Community-driven. Transparent. Sustainable.</strong></div><div className="seal"><div className="seal-icon">✓</div><div><div className="eyebrow">Governance</div><strong>Integrity-led</strong></div></div><div className="seal"><div className="seal-icon">◷</div><div><div className="eyebrow">Programmes</div><strong>Long-term focus</strong></div></div><div className="seal"><div className="seal-icon">⌂</div><div><div className="eyebrow">Partnerships</div><strong>Public + private</strong></div></div></div></div>
 <section className="section"><div className="container split reveal"><div className="photo-card"><img src="/assets/IMG-20260617-WA0014.jpg" alt="Community outreach and partnership activity" loading="lazy"/><div className="photo-badge"><strong>Development begins with people.</strong><span>We listen first, build with communities and design interventions around real needs and long-term ownership.</span></div></div><div><span className="kicker">Who we are</span><h2>Passion translated into practical development.</h2><p className="lead">GPDO is a non-profit organization committed to empowering marginalized communities through integrated and sustainable development initiatives.</p><p>We believe every person, regardless of background or circumstance, deserves access to quality education, healthcare, equal opportunity and a safe, sustainable environment. Our work is rooted in collaboration, ethical governance and solutions that communities can sustain.</p><Link className="btn btn-secondary" href="/about">Discover our story →</Link></div></div></section>
 <section className="section bg-soft"><div className="container"><div className="eyebrow-row reveal"><div><span className="kicker">Our core focus areas</span><h2>Four priorities. One shared purpose.</h2></div><p className="lead">We address connected challenges together, because education, health, equality and environmental resilience are strongest when they advance side by side.</p></div><div className="grid-4">{[['Education & Capacity Development','Inclusive education, vocational skills, entrepreneurship and leadership pathways that strengthen self-reliance and economic opportunity.','education'],['Gender Equality & Social Inclusion','Advocacy and initiatives that expand opportunities for women and girls, protect vulnerable populations and advance social justice.','gender'],['Healthcare & Community Wellbeing','Preventive health awareness and community-based interventions that improve wellbeing and reduce inequalities in access to care.','health'],['Climate Action & Sustainable Development','Environmental education, community mobilization and practical sustainable solutions that protect current and future generations.','climate']].map(([t,d,id],i)=><article className="focus-card reveal" key={t}><div className="icon-box">{i+1}</div><h3>{t}</h3><p>{d}</p><Link href={`/programs#${id}`}>Learn more →</Link></article>)}</div></div></section>
