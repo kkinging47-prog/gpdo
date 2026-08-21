@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import PageHero from '../../components/PageHero';
 import { createClient } from '../../lib/supabase/server';
+import './gallery.css';
 
 export const dynamic = 'force-dynamic';
 export const metadata = { title: 'Gallery', description: 'Explore GPDO community outreach, partnership and engagement activities through our photo gallery.' };
