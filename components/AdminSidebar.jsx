@@ -8,7 +8,7 @@ const modules = [
   { label: 'Media & Gallery', href: '/admin/media' },
   { label: 'Homepage Slideshow', href: '/admin/slides' },
   { label: 'Events', href: '/admin/events' },
-  { label: 'Programs & Projects', step: 'Step 7' },
+  { label: 'Programs & Projects', href: '/admin/programs' },
   { label: 'Articles & News', step: 'Step 8' },
   { label: 'Daily Tips', step: 'Step 9' },
   { label: 'Site Settings', step: 'Step 10' },
