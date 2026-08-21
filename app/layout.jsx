@@ -10,6 +10,7 @@ import './news.css';
 import './admin-articles.css';
 import './tips.css';
 import './admin-tips.css';
+import './admin-settings.css';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import RevealManager from '../components/RevealManager';
