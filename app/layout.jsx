@@ -4,6 +4,8 @@ import './slideshow.css';
 import './slides-admin.css';
 import './events.css';
 import './admin-events.css';
+import './programs-public.css';
+import './programs-admin.css';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import RevealManager from '../components/RevealManager';
