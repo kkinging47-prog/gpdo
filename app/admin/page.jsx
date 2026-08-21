@@ -11,7 +11,7 @@ const modules = [
   ['Homepage Slideshow', 'Create, reorder and schedule homepage slides.', 'Step 5', '/admin/slides', true],
   ['Events', 'Publish upcoming events and automatically archive past dates.', 'Step 6', '/admin/events', true],
   ['Programs & Projects', 'Manage current, upcoming and completed programmes.', 'Step 7', '/admin/programs', true],
-  ['Articles & News', 'Write, edit, publish and feature organization news.', 'Step 8', null, false],
+  ['Articles & News', 'Write, edit, publish and feature organization news.', 'Step 8', '/admin/articles', true],
   ['Daily Tips', 'Schedule short daily education, health and development tips.', 'Step 9', null, false],
   ['Site Settings', 'Manage public contact details and site-wide information.', 'Step 10', null, false],
   ['Users', 'Manage administrators and editors.', 'Step 10', null, false],
@@ -25,7 +25,7 @@ export default async function AdminDashboard() {
   if (!admin) return <main className="admin-auth-shell"><section className="admin-login-card"><span className="admin-eyebrow">Access denied</span><h1>Not authorized</h1><p>This signed-in account is not approved for GPDO administration.</p><form action="/auth/signout" method="post"><button className="admin-primary-btn" type="submit">Sign out</button></form></section></main>;
   return <main className="admin-shell"><AdminSidebar /><section className="admin-main">
     <header className="admin-topbar"><div><span className="admin-eyebrow">GPDO Administration</span><h1>Welcome to your dashboard.</h1><p>Signed in as {admin.email} · {admin.role}</p></div><form action="/auth/signout" method="post"><button className="admin-secondary-btn" type="submit">Sign out</button></form></header>
-    <div className="admin-status-banner"><strong>Media, Slideshow, Events and Programs are enabled.</strong><span>You can now manage the organization’s main public content without editing GitHub.</span></div>
+    <div className="admin-status-banner"><strong>Media, Slideshow, Events, Programs and News are enabled.</strong><span>You can now manage the organization’s major public content without editing GitHub.</span></div>
     <div className="admin-module-grid">{modules.map(([name,desc,step,href,enabled]) => <article className={`admin-module-card${enabled ? ' enabled' : ''}`} key={name}><span>{step}</span><h2>{name}</h2><p>{desc}</p>{enabled ? <Link className="admin-module-link" href={href}>Open manager →</Link> : <button disabled>Coming later</button>}</article>)}</div>
   </section></main>;
 }
