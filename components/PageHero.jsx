@@ -1,0 +1,2 @@
+import Link from 'next/link';
+export default function PageHero({ section, title, lead, className = '' }) {return <section className={`page-hero ${className}`.trim()}><div className="container"><div className="crumb"><Link href="/">Home</Link> / {section}</div><span className="kicker" style={{color:'#fff'}}>{section}</span><h1 style={{maxWidth:'950px'}}>{title}</h1><p className="lead">{lead}</p></div></section>}

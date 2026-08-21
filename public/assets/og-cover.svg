@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#071c35"/><stop offset="1" stop-color="#0b6b65"/></linearGradient>
+    <radialGradient id="glow"><stop stop-color="#d4a63f" stop-opacity=".35"/><stop offset="1" stop-color="#d4a63f" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="1020" cy="120" r="260" fill="url(#glow)"/>
+  <circle cx="1100" cy="560" r="220" fill="#0ea57c" opacity=".14"/>
+  <text x="90" y="180" font-family="Arial, Helvetica, sans-serif" font-size="34" fill="#d4a63f" font-weight="700">GLOBAL PASSION DEVELOPMENT ORGANIZATION</text>
+  <text x="90" y="280" font-family="Arial, Helvetica, sans-serif" font-size="70" fill="#fff" font-weight="800">Empowering communities.</text>
+  <text x="90" y="360" font-family="Arial, Helvetica, sans-serif" font-size="70" fill="#fff" font-weight="800">Creating lasting change.</text>
+  <text x="90" y="455" font-family="Arial, Helvetica, sans-serif" font-size="27" fill="#d9e5ea">Education • Gender Equity • Healthcare • Climate Action</text>
+  <rect x="90" y="515" width="280" height="8" rx="4" fill="#d4a63f"/>
+</svg>
