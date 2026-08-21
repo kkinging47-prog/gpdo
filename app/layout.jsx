@@ -1,4 +1,5 @@
 import './globals.css';
+import './header-compact.css';
 import './admin.css';
 import './slideshow.css';
 import './slides-admin.css';
