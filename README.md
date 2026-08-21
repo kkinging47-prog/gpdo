@@ -4,7 +4,7 @@ Official website and content management system for Global Passion Development Or
 
 ## Upgrade status
 
-Steps 1–11 have been implemented on the `nextjs-migration` preview branch:
+Steps 1–11 are implemented on the `nextjs-migration` preview branch:
 
 1. Next.js migration
 2. Supabase database and storage
@@ -18,21 +18,25 @@ Steps 1–11 have been implemented on the `nextjs-migration` preview branch:
 10. Site Settings & User Management
 11. Security, responsive-layout and configuration audit
 
-### Step 11 hardening
+### Current backend
 
-- Latest Vercel preview build passes successfully.
-- Supabase security advisor reports no current security findings.
-- All CMS tables have Row Level Security enabled.
-- Public read policies are scoped to anonymous visitors; authenticated staff use staff policies.
-- Future-dated daily tips remain inaccessible until their display date.
+The CMS now uses the organisation-accessible Supabase project at `bykbwivujyodiakrrlks.supabase.co`.
+
+The existing GPDO schema, RLS policies, authorization helpers, admin safeguards, seed gallery/slideshow/settings data and storage buckets were migrated to that project. Password-based administrator sign-in was verified successfully on the Vercel preview on 21 August 2026.
+
+### Security and deployment notes
+
+- All CMS tables use Row Level Security.
+- Public read access is restricted to published/public content.
+- Authenticated CMS writes require an active administrator or editor record.
 - User management is administrator-only and the database protects the final active administrator from removal or demotion.
+- Future-dated daily tips remain inaccessible until their display date.
 - Auth callback redirects are restricted to `/admin` destinations.
 - Admin and auth routes send `X-Robots-Tag: noindex, nofollow, noarchive`.
 - Standard response security headers are configured.
-- Contact form WhatsApp destination is driven by Site Settings rather than a hard-coded number.
-- Responsive breakpoints cover public navigation, content grids, forms and admin layouts.
+- Contact form WhatsApp destination is driven by Site Settings.
 - No Supabase service-role or secret key is stored in the repository.
+- Password sign-in is the active admin login method. Magic-link sign-in is not exposed while SMTP and production redirect settings are not yet configured.
+- The temporary Supabase diagnostic endpoint used during migration has been removed.
 
-One manual end-to-end magic-link login test remains dependent on adding the preview callback URL in Supabase Authentication URL Configuration.
-
-Production `main` remains unchanged until final Step 12 deployment.
+Production `main` remains unchanged until explicit approval for the final Step 12 merge and deployment.
