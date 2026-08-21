@@ -1,30 +1,31 @@
-import { createServerClient } from '@supabase/ssr';
 import { NextResponse } from 'next/server';
-import { supabaseUrl, supabasePublishableKey } from './lib/supabase/config';
 
-export async function middleware(request) {
-  let response = NextResponse.next({ request });
-  const supabase = createServerClient(supabaseUrl, supabasePublishableKey, {
-    cookies: {
-      getAll() { return request.cookies.getAll(); },
-      setAll(cookiesToSet) {
-        cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value));
-        response = NextResponse.next({ request });
-        cookiesToSet.forEach(({ name, value, options }) => response.cookies.set(name, value, options));
-      },
-    },
-  });
-
-  const { data: { user } } = await supabase.auth.getUser();
+export function middleware(request) {
   const path = request.nextUrl.pathname;
 
-  if (path.startsWith('/admin') && path !== '/admin/login' && !user) {
-    const url = request.nextUrl.clone();
-    url.pathname = '/admin/login';
-    return NextResponse.redirect(url);
+  // Login and auth endpoints must always be reachable. Authentication is
+  // completed and verified inside the route/page handlers themselves.
+  if (path === '/admin/login' || path.startsWith('/auth/')) {
+    return NextResponse.next();
   }
 
-  return response;
+  if (path.startsWith('/admin')) {
+    // Keep the routing layer deliberately lightweight and network-free.
+    // This is only an early convenience redirect; every admin page also
+    // verifies the Supabase user and admin_users authorization server-side.
+    const hasSupabaseSessionCookie = request.cookies
+      .getAll()
+      .some(({ name }) => name.startsWith('sb-') && name.includes('-auth-token'));
+
+    if (!hasSupabaseSessionCookie) {
+      const url = request.nextUrl.clone();
+      url.pathname = '/admin/login';
+      url.search = '';
+      return NextResponse.redirect(url);
+    }
+  }
+
+  return NextResponse.next();
 }
 
 export const config = {
