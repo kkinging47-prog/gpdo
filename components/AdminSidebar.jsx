@@ -9,7 +9,7 @@ const modules = [
   { label: 'Homepage Slideshow', href: '/admin/slides' },
   { label: 'Events', href: '/admin/events' },
   { label: 'Programs & Projects', href: '/admin/programs' },
-  { label: 'Articles & News', step: 'Step 8' },
+  { label: 'Articles & News', href: '/admin/articles' },
   { label: 'Daily Tips', step: 'Step 9' },
   { label: 'Site Settings', step: 'Step 10' },
   { label: 'Users', step: 'Step 10' },
