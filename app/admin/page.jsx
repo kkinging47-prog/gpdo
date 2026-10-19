@@ -15,6 +15,7 @@ const modules = [
   ['Daily Tips', 'Schedule short daily education, health and development tips.', 'Step 9', '/admin/tips', true],
   ['Site Settings', 'Manage public contact details and site-wide information.', 'Step 10', '/admin/settings', true],
   ['Users', 'Manage administrators and editors.', 'Step 10', '/admin/users', true],
+  ['Password & Security', 'Change your admin password and keep the account secure.', 'Security', '/admin/security', true],
 ];
 
 export default async function AdminDashboard() {
@@ -25,7 +26,7 @@ export default async function AdminDashboard() {
   if (!admin) return <main className="admin-auth-shell"><section className="admin-login-card"><span className="admin-eyebrow">Access denied</span><h1>Not authorized</h1><p>This signed-in account is not approved for GPDO administration.</p><form action="/auth/signout" method="post"><button className="admin-primary-btn" type="submit">Sign out</button></form></section></main>;
   return <main className="admin-shell"><AdminSidebar /><section className="admin-main">
     <header className="admin-topbar"><div><span className="admin-eyebrow">GPDO Administration</span><h1>Welcome to your dashboard.</h1><p>Signed in as {admin.email} · {admin.role}</p></div><form action="/auth/signout" method="post"><button className="admin-secondary-btn" type="submit">Sign out</button></form></header>
-    <div className="admin-status-banner"><strong>Content management Steps 4–10 are enabled.</strong><span>You can manage content, public site details and approved CMS users without editing GitHub.</span></div>
+    <div className="admin-status-banner"><strong>Content management and account security are enabled.</strong><span>You can manage content, public site details, CMS users and your admin password without editing GitHub.</span></div>
     <div className="admin-module-grid">{modules.map(([name,desc,step,href,enabled]) => <article className={`admin-module-card${enabled ? ' enabled' : ''}`} key={name}><span>{step}</span><h2>{name}</h2><p>{desc}</p>{enabled ? <Link className="admin-module-link" href={href}>Open manager →</Link> : <button disabled>Coming later</button>}</article>)}</div>
   </section></main>;
 }
