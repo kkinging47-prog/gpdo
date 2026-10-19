@@ -13,6 +13,7 @@ const modules = [
   { label: 'Daily Tips', href: '/admin/tips' },
   { label: 'Site Settings', href: '/admin/settings' },
   { label: 'Users', href: '/admin/users' },
+  { label: 'Password & Security', href: '/admin/security' },
 ];
 
 export default function AdminSidebar() {
